@@ -1,5 +1,6 @@
 [language-server] 
 biome = { command = "biome", args = ["lsp-proxy"] } # language server definition like in doc
+snippets-ts = { command = "snippets-ls", args = ["-config", "/home/belozerskiy/.config/helix/typescript.json"]}
 
 # [language-server.rust-analyzer.config.check]
 # command = "clippy"
@@ -27,7 +28,7 @@ auto-format = true
 
 [[language]]
 name = "typescript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome"] # like in doc
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome", "snippets-ts"] # like in doc
 auto-format = true
 # formatter = { command = 'prettier', args = ["--parser", "typescript"] }
 
