@@ -24,15 +24,15 @@ newline = "all"
 [editor.whitespace.characters]
 space = "·"
 nbsp = "⍽"
-# tab = "→"
 tab = "|"
 newline = "⏎"
 tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+# tab = "→"
 
 [editor.statusline]
-left = ["mode", "spinner"]
-center = ["file-name", "file-modification-indicator"]
-right = ["version-control","diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+left = ["mode", "spinner","version-control", "file-name", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
 separator = "│"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
@@ -47,3 +47,11 @@ pageup = "no_op"
 pagedown = "no_op"
 home = "no_op"
 end = "no_op"
+
+[keys.normal]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+C-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
