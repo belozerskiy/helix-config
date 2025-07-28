@@ -1,0 +1,8 @@
+итого 20K
+-rw-rw-r-- 1 belozerskiy belozerskiy 1,3K фев 22 18:05 config.toml
+-rw-rw-r-- 1 belozerskiy belozerskiy  120 мар 10 23:59 .dprint.json
+-rw-rw-r-- 1 belozerskiy belozerskiy    0 мар 12 10:28 fzf
+drwxrwxr-x 8 belozerskiy belozerskiy 4,0K мар  3 23:39 .git
+-rw-rw-r-- 1 belozerskiy belozerskiy 2,2K мар 11 13:52 languages.toml
+lrwxrwxrwx 1 belozerskiy belozerskiy   36 сен 13 02:43 runtime -> /home/belozerskiy/.cargo/bin/runtime
+-rw-rw-r-- 1 belozerskiy belozerskiy  316 мар 10 23:09 typescript.json

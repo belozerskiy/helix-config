@@ -1,15 +1,15 @@
 {
-	"for of": {
-		"prefix": ["forof", "for-const"],
-		"body": ["for (const ${2:element} of ${1:array}) {", "\t$0", "}"],
-		"description": "A for loop."
-	},
-	"inline if": {
-		"prefix": ["ifin"],
-		"body": ["if ($1) $2"]
-	},
-	"console log": {
-		"prefix": ["cl"],
-		"body": ["console.log($1);"]
-	}
+  "for of": {
+    "prefix": ["forof", "for-const"],
+    "body": ["for (const ${2:element} of ${1:array}) {", "\t$0", "}"],
+    "description": "A for loop."
+  },
+  "inline if": {
+    "prefix": ["ifin"],
+    "body": ["if ($1) $2"]
+  },
+  "console log": {
+    "prefix": ["cl"],
+    "body": ["console.log($1);"]
+  }
 }

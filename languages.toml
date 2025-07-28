@@ -1,39 +1,245 @@
-[language-server] 
-biome = { command = "biome", args = ["lsp-proxy"] } # language server definition like in doc
-snippets-ts = { command = "snippets-ls", args = ["-config", "/home/belozerskiy/.config/helix/typescript.json"]}
+[language-server.postgres-lsp]
+command = "postgrestools"
+args = ["lsp-proxy"]
 
-# [language-server.rust-analyzer.config.check]
-# command = "clippy"
+[language-server.superhtml-lsp]
+command = "superhtml"
+args = ["lsp"]
+
+[language-server.deno-lsp]
+command = "deno"
+args = ["lsp"]
+
+[language-server.c3-lsp]
+command = "c3lsp"
+args = ["-c3c-path", "/home/belozerskiy/.local/bin/c3c"]
+
+[language-server.nu-lsp]
+command = "nu"
+args = ["--lsp"]
+
+[language-server.deno-lsp.config.deno]
+enable = true
+unstable = true
+lint = true
+suggest.imports.hosts = { "https://deno.land" = true }
+inlayHints.parameterNames.enabled = "all"
+inlayHints.parameterTypes.enabled = true
+inlayHints.variableTypes.enabled = true
+inlayHints.propertyDeclarationTypes.enabled = true
+inlayHints.functionLikeReturnTypes.enabled = true
+inlayHints.enumMemberValues.enabled = true
+
+[language-server.fish-lsp]
+command = "fish-lsp"
+args = ["start"]
+
+[language-server.pylsp.config.pylsp]
+plugins.ruff.enabled = true
+plugins.mypy.enabled = true
+plugins.rope.enabled = true
+
+[language-server.luals]
+command = "lua-language-server"
+
+[language-server.gopls]
+command = "gopls"
+# config = { "gofumpt" = true, "local" = "goimports", "semanticTokens" = true, "staticcheck" = true, "verboseOutput" = true , "gopls" = { "standaloneTags" = ["ignore", "mage"] }, usePlaceholders = true, completeUnimported = true, hints = { "assignVariableType" = true, "compositeLiteralFields" = true, "compositeLiteralTypes" = true, "constantValues" = true, "functionTypeParameters" = true, "parameterNames" = true, "rangeVariableTypes" = true }}
+
+[language-server.gopls.config]
+gofumpt = true
+local = "goimports"
+semanticTokens = true
+staticcheck = true
+verboseOutput = true
+"standaloneTags" = ["ignore", "mage"]
+usePlaceholders = true
+completeUnimported = true
+hints = { "assignVariableType" = true, "compositeLiteralFields" = true, "compositeLiteralTypes" = true, "constantValues" = true, "functionTypeParameters" = true, "parameterNames" = true, "rangeVariableTypes" = true }
+
+
+[language-server.golint-lsp]
+command = "golangci-lint-langserver"
+
+[language-server.golint-lsp.config]
+command = [
+  "golangci-lint",
+  "run",
+  "--out-format",
+  "json",
+  "--issues-exit-code=1",
+  # "--enable-all",
+]  
+
+[language-server.vls]
+command = "/home/belozerskiy/.config/v-analyzer/bin/v-analyzer"
+
+[language-server.dprint-lsp]
+command = "dprint"
+args = ["lsp"]
+
+[language-server.gleam-lsp]
+command = "gleam"
+args = ["lsp"]
+
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+[language-server.snippets-lsp-ts]
+command = "snippets-ts"
+args = ["-config", "/home/belozerskiy/.config/helix/typescript.json"]
+
+[language-server.astro-ls]
+command = "astro-ls"
+args = ["--stdio"]
+config = { typescript = { tsdk = "/home/belozerskiy/.local/share/fnm/aliases/default/lib/node_modules/typescript/lib" }}
+
+
+[language-server.stylelint-lsp]
+command = "stylelint-lsp"
+args = ["--stdio"]
 
 [[language]]
 name = "rust"
 auto-format = true
 
 [[language]]
-name = "go"
+name="python"
 auto-format = true
 
 [[language]]
-name = "html"
-formatter = { command = 'prettier', args = ["--parser", "html"] }
+name = "fish"
+language-servers = [ { name = "fish-lsp" } ]
+
+# [[language]]
+# name = "html"
+# language-servers = [ { name = "vscode-html-language-server", except-features = [ "format" ] }, "dprint-lsp", "emmet-lsp", "stylelint-lsp" ]
+# formatter = { command = 'prettier', args = ["--parser", "html"] }
+# auto-format = true
+
+[[language]]
+name = "lua"
+language-servers = [ { name = "luals"} ]
+auto-format = true
 
 [[language]]
 name = "css"
-formatter = { command = 'prettier', args = ["--parser", "css"] }
+language-servers = [ { name = "vscode-css-language-server", except-features = [ "format" ] }, "dprint-lsp", "emmet-lsp", "stylelint-lsp" ]
+auto-format = true
 
 [[language]]
 name = "javascript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+language-id = "javascript"
+scope = "source.js"
+injection-regex = "^(js|javascript)$"
+file-types = ["js", "mjs"]
+shebangs = ["deno", "node"]
+roots = ["deno.json", "package.json", "tsconfig.json"]
+comment-token = "//"
+language-servers = ["deno-lsp"]
+indent = { tab-width = 2, unit = " " }
 auto-format = true
 
 [[language]]
 name = "typescript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome", "snippets-ts"] # like in doc
+language-id = "typescript"
+scope = "source.ts"
+injection-regex = "^(ts|typescript)$"
+file-types = ["ts"]
+shebangs = ["deno", "node"]
+roots = ["deno.json", "package.json", "tsconfig.json"]
+language-servers = ["deno-lsp"]
+indent = { tab-width = 2, unit = " " }
 auto-format = true
-# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+
+[[language]]
+name = "v"
+language-id = "v"
+scope = "source.v"
+injection-regex = "^(v)$"
+file-types = ["v"]
+shebangs = ["v"]
+roots = ["v.mod"]
+grammar = "v"
+language-servers = [ { name = "vls" } ]
+auto-format = true
+
+[[language]]
+name = "gleam"
+language-id = "gleam"
+scope = "source.gleam"
+injection-regex = "^(gleam)$"
+file-types = ["gleam"]
+shebangs = ["gleam"]
+roots = ["gleam.toml"]
+indent = { tab-width = 4, unit = "  " }
+grammar = "gleam"
+language-servers = ["gleam-lsp"]
+auto-format = true
 
 [[language]]
 name = "json"
-language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "dprint-lsp" ]
+auto-format = true
+
+[[language]]
+name = "astro"
+scope = "source.astro"
+injection-regex = "astro"
+file-types = ["astro"]
+language-servers = ["astro-ls"]
+formatter = { command = "prettier", args = ["--plugin", "prettier-plugin-astro", "--parser", "astro"] }
+auto-format = true
+
+[[language]]
+name = "go"
+roots = ["go.mod"]
+language-servers = [ "gopls", "golint-lsp" ]
+auto-format = true
+
+[[language]]
+name = "sql"
+roots = ["postgrestools.jsonc"]
+language-servers = ["postgres-lsp"]
+auto-format = true
+
+[[language]]
+name = "vue"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "vue"] }
+language-servers = ["typescript-language-server"]
+
+[[language-server.typescript-language-server.config.plugins]]
+name = "@vue/typescript-plugin"
+location = "/home/belozerskiy/.local/share/mise/installs/node/latest/lib/node_modules/@vue/language-server"
+languages = ["vue"]
+
+[[language]]
+name = "nu"
+language-id = "nu"
+scope = "source.nu"
+injection-regex = "nu"
+file-types = ["nu"]
+shebangs = ["nu"]
+language-servers = ["nu-lsp"]
+auto-format = true
+
+[[language]]
+name = "c3"
+language-servers = ["c3-lsp"]
+auto-format = true
+scope = "source.c3"
+file-types = ["c3", "c3i"]
+# injection-regex = "c3"
+# shebangs = ["c3"]
+# language-id = "c3"
+
+[[language]]
+name = "html"
+scope = "source.html"
+roots = []
+file-types = ["html"]
+language-servers = [ "superhtml-lsp", "emmet-lsp" ]
 auto-format = true
 
